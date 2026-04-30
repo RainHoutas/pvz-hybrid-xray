@@ -1,0 +1,82 @@
+{
+  "Name": "",
+  "Description": "这是一个示例关卡",
+  "LevelName": "示例关卡 - 1",
+  "LevelNumber": -1,
+  "NextLevel": "",
+  "HomeWorld": "Noone",
+  "Talk": "",
+  "Tutorial": "",
+  "Map": "Frontlawn",
+  "BGM": "Frontlawn",
+  "Reward": {
+    "RewardFirst": "",
+    "RewardType": "Noone"
+  },
+  "Event": {
+    "EventInit": [],
+    "EventReady": [],
+    "EventStart": []
+  },
+  "PreSpawn": {
+    "Packet": []
+  },
+  "PacketBank": {
+    "LimitGridPlantNum": -1,
+    "Method": "Choose",
+    "Type": "GeneralPlant",
+    "Value": []
+  },
+  "SunManager": {
+    "Begin": 300,
+    "MovingMethod": "Land",
+    "Open": true,
+    "SpawnInterval": 12,
+    "SpawnNum": 50
+  },
+  "WaveManager": {
+    "BeginCol": 20,
+    "FlagWaveInterval": 1,
+    "FlagZombie": "ZombieFlag",
+    "MaxNextWaveHealthPercentage": 0.3,
+    "MinNextWaveHealthPercentage": 0.15,
+    "SpawnColEnd": 20,
+    "SpawnColStart": 10,
+    "Dynamic": [
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {}
+    ],
+    "Wave": [
+      {
+        "Event": [],
+        "Dynamic": {
+          "Point": 200,
+          "ZombiePool": [
+            "ZombieNormal"
+          ]
+        },
+        "DynamicPlantfood": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "Spawn": [
+          {
+            "Line": 3,
+            "Num": 2,
+            "Zombie": "ZombieNormal"
+          }
+        ]
+      }
+    ]
+  }
+}

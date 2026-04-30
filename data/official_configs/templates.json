@@ -1,0 +1,1802 @@
+{
+    "classTypeComputed": {
+        "character": [
+            {
+                "class": "plant",
+                "located": "import:plant"
+            },
+            {
+                "class": "zombie",
+                "located": "import:zombie,zombieExtra"
+            },
+            {
+                "class": "other",
+                "located": "import:item"
+            }
+        ],
+        "card": [
+            {
+                "class": "plantCard",
+                "located": "import:plant"
+            },
+            {
+                "class": "zombieCard",
+                "located": "import:zombie,zombieExtra"
+            },
+            {
+                "class": "otherCard",
+                "located": "import:item"
+            }
+        ]
+    },
+    "reward": [
+        {
+            "label": "无奖励",
+            "value": "Noone",
+            "choose": "none"
+        },
+        {
+            "label": "金币奖励",
+            "value": "Coin",
+            "choose": "number"
+        },
+        {
+            "label": "卡牌奖励",
+            "value": "Packet",
+            "choose": "import:plant"
+        },
+        {
+            "label": "收藏品奖励",
+            "value": "Collectable",
+            "choose": "import:collectable"
+        }
+    ],
+    "order": [
+        "Name",
+        "Description",
+        "LevelName",
+        "LevelNumber",
+        "NextLevel",
+        "BaseTimeScale",
+        "FinishMethod",
+        "HomeWorld",
+        "IZMManager",
+        "Talk",
+        "Tutorial",
+        "VaseManager",
+        "Map",
+        "BGM",
+        "MowerUse",
+        "StormOpen",
+        "Reward",
+        "Event",
+        "LookStarManager",
+        "PreSpawn",
+        "PacketBank",
+        "SunManager",
+        "FogManager",
+        "WaveManager"
+    ],
+    "event": [
+        {
+            "class": [
+                "StartEvent",
+                "WaveEvent"
+            ],
+            "label": "警示文本",
+            "value": "TipsPlay",
+            "display": "文本：[Text]，持续时间：[Duration] 秒",
+            "properties": [
+                {
+                    "label": "文本内容",
+                    "value": "Text",
+                    "property": {
+                        "type": "text",
+                        "placeholder": "请输入要显示的警示文本内容"
+                    }
+                },
+                {
+                    "label": "持续时间",
+                    "value": "Duration",
+                    "property": {
+                        "type": "number",
+                        "min": 1,
+                        "max": 60,
+                        "step": 1,
+                        "placeholder": "秒数"
+                    }
+                }
+            ]
+        },
+        {
+            "class": [
+                "StartEvent",
+                "WaveEvent"
+            ],
+            "label": "切换地图",
+            "value": "MapChange",
+            "display": {
+                "format": "地图：[MapName]，等待时间：[Duration] 秒，延迟时间：[Delay] 秒",
+                "translate": {
+                    "MapName": "import:map"
+                }
+            },
+            "properties": [
+                {
+                    "label": "地图名称",
+                    "value": "MapName",
+                    "property": {
+                        "type": "select",
+                        "placeholder": "选择地图",
+                        "options": "import:map"
+                    }
+                },
+                {
+                    "label": "等待时间",
+                    "value": "Duration",
+                    "property": {
+                        "type": "number",
+                        "default": 60,
+                        "min": 0,
+                        "step": 1,
+                        "placeholder": "秒数"
+                    }
+                },
+                {
+                    "label": "延迟时间",
+                    "value": "Delay",
+                    "property": {
+                        "type": "number",
+                        "default": 0,
+                        "min": 0,
+                        "step": 1,
+                        "placeholder": "秒数"
+                    }
+                }
+            ]
+        },
+        {
+            "class": [
+                "StartEvent",
+                "WaveEvent"
+            ],
+            "label": "墓碑生成僵尸",
+            "value": "GravestoneSpawnZombie",
+            "display": {
+                "format": "生成数量：[ZombieNum]，僵尸池：[ZombieNames]{，生成延迟范围：[Delay.0|Delay]{ ~ [Delay.1]} 秒}{，模型缩放：[Override.Scale]}{，血量倍率：[Override.HitpointScale]}{，移速倍率：[Override.WalkSpeedScale.0|Override.WalkSpeedScale]{ ~ [Override.WalkSpeedScale.1]}}",
+                "translate": {
+                    "ZombieNames": "import:zombie,zombieExtra"
+                }
+            },
+            "properties": [
+                {
+                    "label": "僵尸池",
+                    "value": "ZombieNames",
+                    "property": {
+                        "type": "select-pool",
+                        "placeholder": "选择僵尸",
+                        "addTooltip": "添加",
+                        "options": "import:zombie,zombieExtra"
+                    }
+                },
+                {
+                    "label": "生成数量",
+                    "value": "ZombieNum",
+                    "property": {
+                        "type": "number",
+                        "min": 1,
+                        "step": 1,
+                        "precision": 0,
+                        "placeholder": "生成数量"
+                    }
+                },
+                {
+                    "label": "生成延迟",
+                    "value": "Delay",
+                    "property": {
+                        "type": "range-number",
+                        "optional": true,
+                        "step": 1
+                    }
+                },
+                {
+                    "label": "属性覆盖",
+                    "value": "Override",
+                    "property": {
+                        "type": "attributes",
+                        "classType": "zombie",
+                        "characterRequires": "ZombieNames"
+                    }
+                }
+            ]
+        },
+        {
+            "class": [
+                "StartEvent",
+                "WaveEvent"
+            ],
+            "label": "蹦极放置僵尸",
+            "value": "BungiSpawnZombie",
+            "display": {
+                "format": "生成数量：[ZombieNum]，僵尸池：[ZombieNames]{，生成延迟范围：[Delay.0|Delay]{ ~ [Delay.1]} 秒}{，模型缩放：[Override.Scale]}{，血量倍率：[Override.HitpointScale]}{，移速倍率：[Override.WalkSpeedScale.0|Override.WalkSpeedScale]{ ~ [Override.WalkSpeedScale.1]}}",
+                "translate": {
+                    "ZombieNames": "import:zombie,zombieExtra"
+                }
+            },
+            "properties": [
+                {
+                    "label": "僵尸池",
+                    "value": "ZombieNames",
+                    "property": {
+                        "type": "select-pool",
+                        "placeholder": "选择僵尸",
+                        "addTooltip": "添加",
+                        "options": "import:zombie,zombieExtra"
+                    }
+                },
+                {
+                    "label": "放置数量",
+                    "value": "ZombieNum",
+                    "property": {
+                        "type": "number",
+                        "default": 2,
+                        "min": 1,
+                        "step": 1,
+                        "precision": 0,
+                        "placeholder": "放置僵尸数量"
+                    }
+                },
+                {
+                    "label": "区域选择",
+                    "value": "SpawnPos",
+                    "property": {
+                        "type": "region",
+                        "default": {
+                            "x": 6,
+                            "y": 1,
+                            "z": 9,
+                            "w": 5
+                        }
+                    }
+                },
+                {
+                    "label": "放置延迟",
+                    "value": "Delay",
+                    "property": {
+                        "type": "range-number",
+                        "optional": true,
+                        "step": 1,
+                        "startDefault": 0,
+                        "endDefault": 0
+                    }
+                },
+                {
+                    "label": "属性覆盖",
+                    "value": "Override",
+                    "property": {
+                        "type": "attributes",
+                        "classType": "zombie",
+                        "characterRequires": "ZombieNames"
+                    }
+                }
+            ]
+        },
+        {
+            "class": [
+                "StartEvent",
+                "WaveEvent"
+            ],
+            "label": "随机生成物体",
+            "value": "GravestoneCreateRandom",
+            "display": {
+                "format": "生成数量：[GravestoneNum]，物体种类：[GravestoneNames]，区域：[GravestonePos.x],[GravestonePos.y] ~ [GravestonePos.z],[GravestonePos.w]",
+                "translate": {
+                    "GravestoneNames": "import:plant,zombie,zombieExtra,item"
+                }
+            },
+            "properties": [
+                {
+                    "label": "卡牌种类",
+                    "value": "GravestoneNames",
+                    "property": {
+                        "type": "select-pool",
+                        "placeholder": "选择卡牌",
+                        "addTooltip": "添加",
+                        "options": "import:plant,zombie,zombieExtra,item"
+                    }
+                },
+                {
+                    "label": "生成数量",
+                    "value": "GravestoneNum",
+                    "property": {
+                        "type": "number",
+                        "default": 2,
+                        "min": 1,
+                        "step": 1,
+                        "precision": 0,
+                        "placeholder": "生成数量"
+                    }
+                },
+                {
+                    "label": "区域选择",
+                    "value": "GravestonePos",
+                    "property": {
+                        "type": "region",
+                        "default": {
+                            "x": 6,
+                            "y": 1,
+                            "z": 9,
+                            "w": 5
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "class": [
+                "StartEvent",
+                "WaveEvent"
+            ],
+            "label": "设置警戒线",
+            "value": "CurrentMapUseWarningLine",
+            "display": "警戒线所处列：[Row]",
+            "properties": [
+                {
+                    "label": "所处列",
+                    "value": "Row",
+                    "property": {
+                        "type": "number",
+                        "default": 5,
+                        "min": 0,
+                        "step": 1,
+                        "precision": 0,
+                        "placeholder": "警戒线所处列"
+                    }
+                }
+            ]
+        },
+        {
+            "class": [
+                "StartEvent",
+                "WaveEvent"
+            ],
+            "label": "限制种植列(红线分隔)",
+            "value": "CurrentMapUseStripe",
+            "display": "红线左侧列数：[Row]",
+            "properties": [
+                {
+                    "label": "左侧列数",
+                    "value": "Row",
+                    "property": {
+                        "type": "number",
+                        "default": 3,
+                        "min": 0,
+                        "step": 1,
+                        "precision": 0,
+                        "placeholder": "红线左侧的列数"
+                    }
+                }
+            ]
+        },
+        {
+            "class": [
+                "StartEvent",
+                "WaveEvent"
+            ],
+            "label": "设置出怪行状态",
+            "value": "CurrentMapFunctionExecute",
+            "primary": "FunctionName",
+            "display": "出怪行：[Value.0]，是否出怪：[Value.1]",
+            "properties": [
+                {
+                    "value": "FunctionName",
+                    "property": {
+                        "type": "constant",
+                        "value": "LineUseSet"
+                    }
+                },
+                {
+                    "label": "出怪行数",
+                    "value": "Value.0",
+                    "property": {
+                        "type": "number",
+                        "default": 1,
+                        "min": 1,
+                        "step": 1,
+                        "precision": 0,
+                        "placeholder": "允许出怪的行"
+                    }
+                },
+                {
+                    "label": "是否出怪",
+                    "value": "Value.1",
+                    "property": {
+                        "type": "boolean",
+                        "default": true
+                    }
+                }
+            ]
+        },
+        {
+            "class": [
+                "StartEvent",
+                "WaveEvent"
+            ],
+            "label": "地图行为",
+            "value": "CurrentMapFunctionExecute",
+            "display": {
+                "format": "地图行为：[FunctionName]{，列数：[Value.0]}",
+                "translate": {
+                    "FunctionName": "import:mapFunction"
+                }
+            },
+            "properties": [
+                {
+                    "label": "地图行为",
+                    "value": "FunctionName",
+                    "property": {
+                        "type": "select",
+                        "placeholder": "选择行为",
+                        "options": "import:mapFunction"
+                    }
+                },
+                {
+                    "@if:FunctionName:!=": "UseStripe",
+                    "value": "FunctionValue",
+                    "property": {
+                        "type": "constant",
+                        "value": []
+                    }
+                },
+                {
+                    "@if:FunctionName": "UseStripe",
+                    "label": "左侧列数",
+                    "value": "Value.0",
+                    "property": {
+                        "type": "number",
+                        "default": 3,
+                        "min": 0,
+                        "step": 1,
+                        "precision": 0,
+                        "placeholder": "红线左侧的列数"
+                    }
+                }
+            ]
+        },
+        {
+            "class": [
+                "ConveyorEvent"
+            ],
+            "label": "传送带增加卡牌",
+            "value": "AddPacket",
+            "display": {
+                "format": "卡牌：[Name]，权重：[Weight]{，平衡数量上限：[MaxNum]}{，越过平衡权重倍率：[MaxMagnification]}{，平衡数量下限：[MinNum]}{，低于平衡权重倍率：[MinMagnification]}",
+                "translate": {
+                    "Name": "import:plant,zombie,zombieExtra,item"
+                }
+            },
+            "properties": [
+                {
+                    "label": "选择卡牌",
+                    "value": "Name",
+                    "property": {
+                        "type": "select",
+                        "placeholder": "选择需要追加的卡牌",
+                        "options": "import:plant,zombie,zombieExtra,item"
+                    }
+                },
+                {
+                    "label": "卡牌权重",
+                    "value": "Weight",
+                    "property": {
+                        "type": "number",
+                        "default": 20,
+                        "min": 1,
+                        "step": 1,
+                        "precision": 0
+                    }
+                },
+                {
+                    "label": "平衡数量上限",
+                    "value": "MaxNum",
+                    "property": {
+                        "type": "number",
+                        "optional": true,
+                        "default": 9,
+                        "min": 1,
+                        "step": 1,
+                        "precision": 0
+                    }
+                },
+                {
+                    "label": "权重倍率",
+                    "value": "MaxMagnification",
+                    "property": {
+                        "type": "number",
+                        "optional": true,
+                        "default": 0.1,
+                        "min": 0,
+                        "step": 0.1
+                    }
+                },
+                {
+                    "label": "平衡数量下限",
+                    "value": "MinNum",
+                    "property": {
+                        "type": "number",
+                        "optional": true,
+                        "default": 3,
+                        "min": 1,
+                        "step": 1,
+                        "precision": 0
+                    }
+                },
+                {
+                    "label": "权重倍率",
+                    "value": "MinMagnification",
+                    "property": {
+                        "type": "number",
+                        "optional": true,
+                        "default": 3,
+                        "min": 0,
+                        "step": 0.1
+                    }
+                }
+            ]
+        },
+        {
+            "class": [
+                "StartEvent",
+                "WaveEvent"
+            ],
+            "label": "改变模式",
+            "value": "SetGameMode",
+            "display": {
+                "format": "模式：[GameMode]",
+                "translate": {
+                    "GameMode": "import:mode"
+                }
+            },
+            "properties": [
+                {
+                    "label": "模式名称",
+                    "value": "GameMode",
+                    "property": {
+                        "type": "select",
+                        "placeholder": "选择模式",
+                        "options": "import:mode"
+                    }
+                }
+            ]
+        },
+        {
+            "class": [
+                "StartEvent",
+                "WaveEvent"
+            ],
+            "label": "传送门创建",
+            "value": "CreateProtal",
+            "display": {
+                "format": "样式：[Shape]，位置改变时间：[ChangeTime] 秒，范围：[PosRange.x],[PosRange.y]~[PosRange.z],[PosRange.w]",
+                "translate": {
+                    "Shape": "import:shape"
+                }
+            },
+            "properties": [
+                {
+                    "label": "样式选择",
+                    "value": "Shape",
+                    "property": {
+                        "type": "select",
+                        "placeholder": "选择传送门样式",
+                        "options": "import:shape"
+                    }
+                },
+                {
+                    "label": "变幻时间",
+                    "value": "ChangeTime",
+                    "property": {
+                        "type": "number",
+                        "default": 0,
+                        "min": 0,
+                        "step": 1,
+                        "placeholder": "秒数"
+                    }
+                },
+                {
+                    "label": "生成区域",
+                    "value": "PosRange",
+                    "property": {
+                        "type": "region",
+                        "default": {
+                            "x": 3,
+                            "y": 1,
+                            "z": 9,
+                            "w": 5
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "class": [
+                "StartEvent",
+                "WaveEvent"
+            ],
+            "label": "改变传送门位置",
+            "value": "ChangeProtalPos"
+        },
+        {
+            "class": [
+                "StartEvent",
+                "WaveEvent"
+            ],
+            "label": "清除当前场景所有对象",
+            "value": "CurrentMapCharacterClear"
+        },
+        {
+            "class": [
+                "DieEvent",
+                "SpawnEvent"
+            ],
+            "label": "生成阳光",
+            "value": "SunCreate",
+            "display": {
+                "format": "{阳光价值：[Num]}{，死亡生成：[DieCreate]}{，是否继承卡牌：[FromPacket]，继承倍率[FromPacketPercentage]}",
+                "translate": {}
+            },
+            "properties": [
+                {
+                    "@if:FromPacket:=": false,
+                    "label": "阳光价值",
+                    "value": "Num",
+                    "property": {
+                        "type": "number",
+                        "precision": 0,
+                        "placeholder": "生成阳光的价值"
+                    }
+                },
+                {
+                    "@if:PacketName:=": false,
+                    "label": "死亡生成（不可用）",
+                    "value": "DieCreate",
+                    "property": {
+                        "type": "boolean",
+                        "value": false
+                    }
+                },
+                {
+                    "label": "是否继承卡牌",
+                    "value": "FromPacket",
+                    "property": {
+                        "type": "boolean",
+                        "value": false
+                    }
+                },
+                {
+                    "@if:FromPacket:=": true,
+                    "label": "继承倍率",
+                    "value": "FromPacketPercentage",
+                    "property": {
+                        "type": "number",
+                        "step": 0.1,
+                        "default": 0.5,
+                        "min": -1.79e+308,
+                        "placeholder": "生成阳光的价值"
+                    }
+                }
+            ]
+        },
+        {
+            "class": [
+                "PlantEvent"
+            ],
+            "label": "删除卡牌",
+            "value": "Delete"
+        },
+        {
+            "class": [
+                "PlantEvent"
+            ],
+            "label": "改变卡牌/属性",
+            "value": "ChangePacket",
+            "display": {
+                "format": "模式：[PacketName]",
+                "translate": {
+                    "PacketName": "import:plant,zombie,zombieExtra,item"
+                }
+            },
+            "properties": [
+                {
+                    "label": "卡牌名称",
+                    "value": "PacketName",
+                    "property": {
+                        "type": "select",
+                        "placeholder": "选择卡牌",
+                        "options": "import:plant,zombie,zombieExtra,item"
+                    }
+                },
+                {
+                    "label": "属性覆盖",
+                    "value": "Override",
+                    "property": {
+                        "type": "attributes",
+                        "classTypeComputed": "card",
+                        "characterRequires": "PacketName"
+                    }
+                }
+            ]
+        },
+        {
+            "class": [
+                "Trigger"
+            ],
+            "label": "场上指定实体数量",
+            "value": "CheckCharacterNum",
+            "display": {
+                "format": "[CharacterName]的数量[Method][Num]",
+                "translate": {
+                    "CharacterName": "import:plant,zombie,zombieExtra,item"
+                }
+            },
+            "properties": [
+                {
+                    "label": "实体类型",
+                    "value": "CharacterName",
+                    "property": {
+                        "type": "select",
+                        "placeholder": "选择实体",
+                        "options": "import:plant,zombie,zombieExtra,item"
+                    }
+                },
+                {
+                    "label": "比较方式",
+                    "value": "Method",
+                    "property": {
+                        "type": "select",
+                        "placeholder": "选择方式",
+                        "options": "import:operator"
+                    }
+                },
+                {
+                    "label": "比较数量",
+                    "value": "Num",
+                    "property": {
+                        "type": "number",
+                        "min": 0,
+                        "step": 1,
+                        "precision": 0,
+                        "placeholder": "参与比较的数值"
+                    }
+                }
+            ]
+        },
+        {
+            "class": [
+                "Trigger"
+            ],
+            "label": "收集阳光数",
+            "value": "CheckSunCollect",
+            "display": "收集[Num]阳光",
+            "properties": [
+                {
+                    "label": "阳光数量",
+                    "value": "Num",
+                    "property": {
+                        "type": "number",
+                        "min": 0,
+                        "step": 1,
+                        "precision": 0,
+                        "placeholder": "阳光的数量"
+                    }
+                }
+            ]
+        }
+    ],
+    "attribute": [
+        {
+            "class": [
+                "zombie"
+            ],
+            "label": "装备覆盖",
+            "value": "Armor",
+            "property": {
+                "type": "armor-check-select",
+                "placeholder": "选择防具"
+            }
+        },
+        {
+            "class": [
+                "zombie",
+                "other"
+            ],
+            "label": "是否隐形",
+            "value": "Invisible",
+            "property": {
+                "helpTip": "隐形食脑者！",
+                "type": "constant",
+                "value": true
+            }
+        },
+        {
+            "class": [
+                "zombieCard",
+                "plantCard"
+            ],
+            "label": "是否魅惑",
+            "value": "Hypnoses",
+            "property": {
+                "helpTip": "魅惑的僵尸！",
+                "type": "constant",
+                "value": true
+            }
+        },
+        {
+            "class": [
+                "zombie",
+                "plant",
+                "other"
+            ],
+            "label": "模型缩放",
+            "value": "Scale",
+            "property": {
+                "type": "number",
+                "min": 0,
+                "step": 0.1,
+                "placeholder": "1.0"
+            }
+        },
+        {
+            "class": [
+                "zombie",
+                "plant",
+                "other"
+            ],
+            "label": "血量倍率",
+            "value": "HitpointScale",
+            "property": {
+                "type": "number",
+                "min": 0,
+                "step": 0.1,
+                "placeholder": "1.0"
+            }
+        },
+        {
+            "class": [
+                "zombie"
+            ],
+            "label": "移速倍率",
+            "value": "WalkSpeedScale",
+            "property": {
+                "type": "range-number",
+                "min": 0,
+                "step": 0.1,
+                "placeholder": "1.0",
+                "placeholder2": ""
+            }
+        },
+        {
+            "class": [
+                "zombie"
+            ],
+            "label": "动画速率",
+            "value": "AnimeSpeedScale",
+            "property": {
+                "type": "range-number",
+                "min": 0,
+                "step": 0.1,
+                "placeholder": "1.0",
+                "placeholder2": ""
+            }
+        },
+        {
+            "class": [
+                "plant",
+                "other"
+            ],
+            "label": "乘坐小推车",
+            "value": "CanMowerMove",
+            "property": {
+                "helpTip": "点击植物可以WASD或拖拽触摸移动它",
+                "type": "constant",
+                "value": true
+            }
+        },
+        {
+            "class": [
+                "zombie",
+                "plant",
+                "other"
+            ],
+            "label": "生成事件",
+            "value": "SpawnEvent",
+            "property": {
+                "type": "event-table",
+                "eventType": "SpawnEvent",
+                "helpTip": "添加植物或僵尸在生成时所触发的事件",
+                "addTooltip": "添加生成事件",
+                "placeholder": "暂无生成事件配置"
+            }
+        },
+        {
+            "class": [
+                "zombie",
+                "plant",
+                "other"
+            ],
+            "label": "死亡事件",
+            "value": "DieEvent",
+            "property": {
+                "type": "event-table",
+                "eventType": "DieEvent",
+                "helpTip": "添加植物或僵尸死亡时触发的事件",
+                "addTooltip": "添加死亡事件",
+                "placeholder": "暂无死亡事件配置"
+            }
+        },
+        {
+            "class": [
+                "zombieCard",
+                "plantCard",
+                "otherCard"
+            ],
+            "label": "卡牌品质",
+            "value": "Type",
+            "property": {
+                "type": "select",
+                "placeholder": "设定该卡牌的品质",
+                "options": "import:cardType"
+            }
+        },
+        {
+            "class": [
+                "zombieCard",
+                "plantCard",
+                "otherCard"
+            ],
+            "label": "基础价格",
+            "value": "Cost",
+            "property": {
+                "type": "number",
+                "min": -1.79e+308,
+                "step": 10,
+                "precision": 0,
+                "placeholder": "种植所需的阳光"
+            }
+        },
+        {
+            "class": [
+                "zombieCard",
+                "plantCard",
+                "otherCard"
+            ],
+            "label": "后续种植涨价",
+            "value": "CostRise",
+            "property": {
+                "type": "number",
+                "min": -1.79e+308,
+                "step": 10,
+                "precision": 0,
+                "placeholder": "每次涨价",
+                "helpTip": "启用并设置数值会覆盖金卡本身的种植涨价设定"
+            }
+        },
+        {
+            "class": [
+                "zombieCard",
+                "plantCard",
+                "otherCard"
+            ],
+            "label": "冷却时间",
+            "value": "PacketCooldown",
+            "property": {
+                "type": "number",
+                "min": 0,
+                "step": 0.5,
+                "placeholder": "单位：秒"
+            }
+        },
+        {
+            "class": [
+                "zombieCard",
+                "plantCard",
+                "otherCard"
+            ],
+            "label": "开局冷却时间",
+            "value": "StartingCooldown",
+            "property": {
+                "type": "number",
+                "min": 0,
+                "step": 0.5,
+                "placeholder": "单位：秒"
+            }
+        },
+        {
+            "class": [
+                "zombieCard"
+            ],
+            "label": "权重",
+            "value": "Weight",
+            "property": {
+                "type": "number",
+                "min": 0,
+                "step": 10,
+                "precision": 0,
+                "placeholder": ""
+            }
+        },
+        {
+            "class": [
+                "zombieCard"
+            ],
+            "label": "随机出怪点数",
+            "value": "WavePointCost",
+            "property": {
+                "type": "number",
+                "min": 0,
+                "step": 10,
+                "precision": 0,
+                "placeholder": ""
+            }
+        },
+        {
+            "class": [
+                "zombieCard",
+                "plantCard",
+                "otherCard"
+            ],
+            "label": "选卡事件",
+            "value": "EventPress",
+            "property": {
+                "type": "event-table",
+                "eventType": "PressEvent",
+                "addTooltip": "添加选卡事件",
+                "placeholder": "暂无选卡事件配置"
+            }
+        },
+        {
+            "class": [
+                "zombieCard",
+                "plantCard",
+                "otherCard"
+            ],
+            "label": "种植事件",
+            "value": "EventPlant",
+            "property": {
+                "type": "event-table",
+                "eventType": "PlantEvent",
+                "addTooltip": "添加种植事件",
+                "placeholder": "暂无种植事件配置"
+            }
+        },
+        {
+            "class": [
+                "plantCard",
+                "otherCard"
+            ],
+            "label": "可种格数限制",
+            "value": "IslimitGridNum",
+            "property": {
+                "type": "switch",
+                "default": true,
+                "helpTip": "选卡配置如果设置了限制种植，关闭时可以无视",
+                "offText": "无视限制",
+                "onText": "受限制的"
+            }
+        },
+        {
+            "class": [
+                "plantCard",
+                "otherCard"
+            ],
+            "label": "直接种植",
+            "value": "CoverCanDirectPlant",
+            "property": {
+                "type": "switch",
+                "default": true,
+                "helpTip": "有些植物需替换种植到其他植物上，此开关可以无视规则",
+                "offText": "覆盖种植",
+                "onText": "直接种植"
+            }
+        },
+        {
+            "class": [
+                "plantCard",
+                "otherCard"
+            ],
+            "label": "需替换种植什么植物",
+            "value": "PlantCover",
+            "property": {
+                "type": "check-select",
+                "placeholder": "选择植物",
+                "options": "import:plant,item[vase],item[mower]"
+            }
+        },
+        {
+            "class": [
+                "plantCard"
+            ],
+            "label": "植物属性覆盖",
+            "value": "CharacterOverride",
+            "property": {
+                "type": "attributes",
+                "classType": "plant"
+            }
+        },
+        {
+            "class": [
+                "zombieCard"
+            ],
+            "label": "僵尸属性覆盖",
+            "value": "CharacterOverride",
+            "property": {
+                "type": "attributes",
+                "classType": "zombie"
+            }
+        },
+        {
+            "class": [
+                "otherCard"
+            ],
+            "label": "放置物属性覆盖",
+            "value": "CharacterOverride",
+            "property": {
+                "type": "attributes",
+                "classType": "other"
+            }
+        }
+    ],
+    "property": [
+        {
+            "label": "攻击伤害",
+            "value": "attack",
+            "type": "int",
+            "unit": "点伤害",
+            "whitelist": [
+                "PlantCorntrop",
+                "PlantCaltropMelon",
+                "PlantCaltropSnow",
+                "PlantPotSpike",
+                "PlantCaltrop"
+            ]
+        },
+        {
+            "label": "攻击间隔",
+            "value": "fireInterval",
+            "type": "float",
+            "unit": "秒",
+            "whitelist": [
+                "PlantPeaShooterSingle",
+                "PlantSnowPea",
+                "PlantPeaShooter",
+                "PlantPeaShooterBack",
+                "PlantScaredyShroom",
+                "PlantThreePeater",
+                "PlantPuffShroom",
+                "PlantFumeShroom",
+                "PlantScaredyShroom",
+                "PlantCaltrop",
+                "PlantSeaShroom",
+                "PlantCactus",
+                "PlantSplitPea",
+                "PlantStarfruit",
+                "PlantCabbagepult",
+                "PlantCornpult",
+                "PlantMelonpult",
+                "PlantSunflowerPea",
+                "PlantReCactus",
+                "PlantCorntrop",
+                "PlantPuffPot",
+                "PlantPeaPot",
+                "PlantCatPot",
+                "PlantIcenut",
+                "PlantWinterMelonShroom",
+                "PlantSnowShroom",
+                "PlantPeaLilyPad",
+                "PlantFireSnowPea",
+                "PlantGloompult",
+                "PlantPeaCat",
+                "PlantSeaNut",
+                "PlantMelonpultSpike",
+                "PlantCaltropMelon",
+                "PlantPotSpike",
+                "PlantPeaWell",
+                "PlantIceSeaShroom",
+                "PlantCornpultM",
+                "PlantPumpkinSun",
+                "PlantKabbageTail",
+                "PlantSeaStar",
+                "PlantCatFlower",
+                "PlantCatPumpkin",
+                "PlantCabbageCob",
+                "PlantMelonnut",
+                "PlantPotSpike",
+                "PlantSunpult",
+                "PlantSunPeashooter",
+                "PlantThreePeaterG",
+                "PlantCaltropSnow",
+                "PlantIceCactus",
+                "PlantJalapult",
+                "PlantWallnutSquash",
+                "PlantWinterMelonX",
+                "PlantPiratePeater",
+                "PlantStarPeater",
+                "PlantFumeShroomC",
+                "PlantPowShroom",
+                "PlantPumpkinPea",
+                "PlantFeverStar",
+                "PlantSquidGloomShroom",
+                "PlantStressShroom",
+                "PlantPotatoStar",
+                "PlantPeashooterZ",
+                "PlantThreePeaterZ",
+                "PlantCatTailZ",
+
+                "PlantGatlingPea",
+                "PlantCatTail",
+                "PlantWinterMelon",
+                "PlantIceSpearPea",
+                "PlantGatlingPot",
+                "PlantGatlingCat",
+                "PlantThreeCactus",
+
+                "PlantWildPea",
+                "PlantQueenSunFlower",
+                "PlantIceTallnut",
+                "PlantHamburger",
+                "PlantHotDog",
+                "PlantWinterMelonCat",
+                "PlantButterGloomShroom",
+                "PlantSpikeShroom",
+                "PlantThreePeaterU",
+                "PlantCatGatlingPea",
+                "PlantSnowManPea",
+
+                "PlantHypnoShroomShooter",
+                "PlantMarigoldG",
+
+                "PlantPeaVase",
+
+                "ZombieFootballFumeShroom",
+                "ZombieFootballBlackFumeShroom",
+                "ZombieImpPuffShroom",
+                "ZombieImpSeaShroom",
+                "ZombieImpSunpult",
+                "ZombieNormalPeaShooterSingle",
+                "ZombieNormalPeaShooter",
+                "ZombieNormalSnowPea",
+                "ZombieNormalIcenut",
+                "ZombieNormalIceTallnut",
+                "ZombieNormalGatlingPea",
+                "ZombieNormalWildPea",
+                "ZombieNormalStarfruit",
+                "ZombieNormalThreePeater",
+                "ZombieNormalCabbagepult",
+                "ZombieNormalCornpult",
+                "ZombieNormalMelonpult",
+                "ZombieNormalWinterMelon",
+                "ZombieDiggerGatlingPea",
+                "ZombieDolphinriderGatlingPea",
+                "ZombieCat",
+                "ZombieCatapult",
+                "ZombieBalloonpult",
+                "ZombieImppult"
+            ]
+        },
+        {
+            "label": "火力强度",
+            "value": "fireNum",
+            "type": "int",
+            "unit": "倍",
+            "whitelist": [
+                "PlantPeaShooterSingle",
+                "PlantSnowPea",
+                "PlantPeaShooter",
+                "PlantPeaShooterBack",
+                "PlantScaredyShroom",
+                "PlantThreePeater",
+                "PlantPuffShroom",
+                "PlantFumeShroom",
+                "PlantScaredyShroom",
+                "PlantSeaShroom",
+                "PlantCactus",
+                "PlantSplitPea",
+                "PlantStarfruit",
+                "PlantCabbagepult",
+                "PlantCornpult",
+                "PlantMelonpult",
+                "PlantSunflowerPea",
+                "PlantReCactus",
+                "PlantCorntrop",
+                "PlantPuffPot",
+                "PlantPeaPot",
+                "PlantCatPot",
+                "PlantIcenut",
+                "PlantWinterMelonShroom",
+                "PlantSnowShroom",
+                "PlantPeaLilyPad",
+                "PlantFireSnowPea",
+                "PlantGloompult",
+                "PlantPeaCat",
+                "PlantSeaNut",
+                "PlantMelonpultSpike",
+                "PlantPotSpike",
+                "PlantPeaWell",
+                "PlantIceSeaShroom",
+                "PlantCornpultM",
+                "PlantPumpkinSun",
+                "PlantKabbageTail",
+                "PlantSeaStar",
+                "PlantCatFlower",
+                "PlantCatPumpkin",
+                "PlantCabbageCob",
+                "PlantMelonnut",
+                "PlantPotSpike",
+                "PlantSunpult",
+                "PlantSunPeashooter",
+                "PlantThreePeaterG",
+                "PlantCaltropSnow",
+                "PlantIceCactus",
+                "PlantJalapult",
+                "PlantWallnutSquash",
+                "PlantWinterMelonX",
+                "PlantPiratePeater",
+                "PlantStarPeater",
+                "PlantFumeShroomC",
+                "PlantPumpkinPea",
+                "PlantFeverStar",
+                "PlantPotatoStar",
+                "PlantPeashooterZ",
+                "PlantThreePeaterZ",
+                "PlantCatTailZ",
+
+                "PlantGatlingPea",
+                "PlantCatTail",
+                "PlantWinterMelon",
+                "PlantIceSpearPea",
+                "PlantGatlingPot",
+                "PlantGatlingCat",
+                "PlantThreeCactus",
+
+                "PlantWildPea",
+                "PlantQueenSunFlower",
+                "PlantIceTallnut",
+                "PlantHamburger",
+                "PlantHotDog",
+                "PlantWinterMelonCat",
+                "PlantButterGloomShroom",
+                "PlantThreePeaterU",
+                "PlantCatGatlingPea",
+                "PlantSnowManPea",
+
+                "PlantHypnoShroomShooter",
+                "PlantMarigoldG",
+
+                "PlantPeaVase",
+
+                "ZombieImpPuffShroom",
+                "ZombieImpSeaShroom",
+                "ZombieImpSunpult",
+                "ZombieNormalPeaShooterSingle",
+                "ZombieNormalPeaShooter",
+                "ZombieNormalSnowPea",
+                "ZombieNormalIcenut",
+                "ZombieNormalIceTallnut",
+                "ZombieNormalGatlingPea",
+                "ZombieNormalWildPea",
+                "ZombieNormalStarfruit",
+                "ZombieNormalThreePeater",
+                "ZombieNormalCabbagepult",
+                "ZombieNormalCornpult",
+                "ZombieNormalMelonpult",
+                "ZombieNormalWinterMelon",
+                "ZombieDiggerGatlingPea",
+                "ZombieDolphinriderGatlingPea",
+                "ZombieCat",
+                "ZombieCatapult",
+                "ZombieBalloonpult",
+                "ZombieImppult"
+            ]
+        },
+        {
+            "label": "子弹种类",
+            "value": "projectileName",
+            "type": "select",
+            "options": "import:projectile",
+            "helpTip": "决定植物发射哪一种子弹，不修改即为默认",
+            "whitelist": [
+                "PlantPeaShooterSingle",
+                "PlantSnowPea",
+                "PlantPeaShooter",
+                "PlantPeaShooterBack",
+                "PlantScaredyShroom",
+                "PlantThreePeater",
+                "PlantPuffShroom",
+                "PlantFumeShroom",
+                "PlantScaredyShroom",
+                "PlantSeaShroom",
+                "PlantCactus",
+                "PlantSplitPea",
+                "PlantStarfruit",
+                "PlantCabbagepult",
+                "PlantCornpult",
+                "PlantMelonpult",
+                "PlantSunflowerPea",
+                "PlantReCactus",
+                "PlantCorntrop",
+                "PlantPuffPot",
+                "PlantPeaPot",
+                "PlantCatPot",
+                "PlantIcenut",
+                "PlantWinterMelonShroom",
+                "PlantSnowShroom",
+                "PlantPeaLilyPad",
+                "PlantGloompult",
+                "PlantPeaCat",
+                "PlantSeaNut",
+                "PlantMelonpultSpike",
+                "PlantPeaWell",
+                "PlantIceSeaShroom",
+                "PlantPumpkinSun",
+                "PlantSeaStar",
+                "PlantCatFlower",
+                "PlantCatPumpkin",
+                "PlantCabbageCob",
+                "PlantMelonnut",
+                "PlantPotSpike",
+                "PlantSunpult",
+                "PlantSunPeashooter",
+                "PlantThreePeaterG",
+                "PlantCaltropSnow",
+                "PlantIceCactus",
+                "PlantWallnutSquash",
+                "PlantWinterMelonX",
+                "PlantPiratePeater",
+                "PlantStarPeater",
+                "PlantFumeShroomC",
+                "PlantPumpkinPea",
+                "PlantFeverStar",
+                "PlantPotatoStar",
+                "PlantPeashooterZ",
+                "PlantThreePeaterZ",
+                "PlantCatTailZ",
+
+                "PlantGatlingPea",
+                "PlantCatTail",
+                "PlantWinterMelon",
+                "PlantIceSpearPea",
+                "PlantGatlingPot",
+                "PlantGatlingCat",
+                "PlantThreeCactus",
+
+                "PlantWildPea",
+                "PlantQueenSunFlower",
+                "PlantIceTallnut",
+                "PlantWinterMelonCat",
+                "PlantThreePeaterU",
+                "PlantCatGatlingPea",
+                "PlantSnowManPea",
+
+                "PlantHypnoShroomShooter",
+
+                "PlantPeaVase",
+
+                "ItemGatlingTX",
+
+                "ZombieImpPuffShroom",
+                "ZombieImpSeaShroom",
+                "ZombieImpSunpult",
+                "ZombieNormalPeaShooterSingle",
+                "ZombieNormalPeaShooter",
+                "ZombieNormalSnowPea",
+                "ZombieNormalIcenut",
+                "ZombieNormalIceTallnut",
+                "ZombieNormalGatlingPea",
+                "ZombieNormalWildPea",
+                "ZombieNormalStarfruit",
+                "ZombieNormalThreePeater",
+                "ZombieNormalCabbagepult",
+                "ZombieNormalCornpult",
+                "ZombieNormalMelonpult",
+                "ZombieNormalWinterMelon",
+                "ZombieDiggerGatlingPea",
+                "ZombieDolphinriderGatlingPea",
+                "ZombieCat",
+                "ZombieCatapult",
+                "ZombieBalloonpult",
+                "ZombieImppult"
+            ]
+        },
+        {
+            "label": "投掷次数",
+            "value": "projectileNum",
+            "type": "int",
+            "unit": "次",
+            "whitelist": [
+                "ZombieCatapult",
+                "ZombieBalloonpult",
+                "ZombieImppult"
+            ]
+        },
+        {
+            "label": "消化时间",
+            "value": "chewTime",
+            "type": "int",
+            "whitelist": [
+                "PlantChomper",
+                "PlantChomperBlow",
+                "PlantGarlicChomper",
+                "PlantChomperPot",
+                "ZombieNormalChomper"
+            ]
+        },
+        {
+            "label": "移动速度",
+            "value": "speed",
+            "type": "int",
+            "whitelist": [
+                "ZombieBalloon",
+                "ZombieBalloonCone",
+                "ZombieBalloonBucket",
+                "ZombieBalloonHelmet",
+                "ZombieBalloonBlackHelmet",
+                "ZombieBalloonSpecialHelmet",
+                "ZombieBalloonColour",
+                "ZombieBalloonColourCone",
+                "ZombieBalloonColourBucket",
+                "ZombieBalloonColourHelmet",
+                "ZombieBalloonColourBlackHelmet",
+                "ZombieBalloonColourSpecialHelmet",
+                "ZombieZamboni",
+                "ZombieGargantuarZamboni",
+                "ZombieCatapult",
+                "ZombieBalloonpult",
+                "ZombieImppult",
+                "ZombieBalloonBomb"
+            ]
+        },
+        {
+            "label": "阳光种类",
+            "value": "produceType",
+            "type": "select",
+            "options": "import:produceType",
+            "helpTip": "决定植物会生产哪一种的阳光，不修改即为默认",
+            "whitelist": [
+                "PlantTwinSunShroom",
+                "PlantSunflowerPea",
+                "PlantSunShroom",
+                "PlantSunBean",
+                "PlantJalaSunShroom",
+                "PlantScaredySunShroom",
+                "PlantSunPad",
+                "PlantPumpkinSun",
+                "PlantSunPot",
+                "PlantCatFlower",
+                "PlantSunpult",
+                "PlantSunPeashooter",
+                "PlantNutFlower",
+                "PlantSunFlowerZ",
+                "PlantDisguiserSunFlower",
+                "PlantQueenSunFlower",
+                "PlantHamburger",
+                "PlantHotDog",
+                "PlantVIPNut",
+                "ZombieNormalSunflower"
+            ]
+        },
+        {
+            "label": "阳光产量",
+            "value": "sunNum",
+            "type": "int",
+            "unit": "点阳光",
+            "helpTip": "决定一次生产价值多少的阳光，向日葵默认25",
+            "whitelist": [
+                "PlantTwinSunShroom",
+                "PlantSunflowerPea",
+                "PlantSunShroom",
+                "PlantSunBean",
+                "PlantJalaSunShroom",
+                "PlantScaredySunShroom",
+                "PlantSunPad",
+                "PlantPumpkinSun",
+                "PlantSunPot",
+                "PlantCatFlower",
+                "PlantSunpult",
+                "PlantSunPeashooter",
+                "PlantNutFlower",
+                "PlantSunFlowerZ",
+                "PlantQueenSunFlower",
+                "PlantHamburger",
+                "PlantHotDog",
+                "PlantVIPNut",
+                "PlantDisguiserSunFlower",
+                "ZombieNormalSunflower"
+            ]
+        },
+        {
+            "label": "长大后阳光产量",
+            "value": "growUpSunNum",
+            "type": "int",
+            "unit": "点阳光",
+            "helpTip": "决定长大后一次生产价值多少的阳光，向日葵默认50",
+            "whitelist": [
+                "PlantSunShroom"
+            ]
+        },
+        {
+            "label": "生产间隔",
+            "value": "produceInterval",
+            "type": "int",
+            "unit": "秒",
+            "helpTip": "决定阳光的产出时间",
+            "whitelist": [
+                "PlantTwinSunShroom",
+                "PlantSunflowerPea",
+                "PlantSunShroom",
+                "PlantSunBean",
+                "PlantJalaSunShroom",
+                "PlantScaredySunShroom",
+                "PlantSunPad",
+                "PlantPumpkinSun",
+                "PlantSunPot",
+                "PlantCatFlower",
+                "PlantSunpult",
+                "PlantSunPeashooter",
+                "PlantNutFlower",
+                "PlantSunFlowerZ",
+                "PlantQueenSunFlower",
+                "PlantHamburger",
+                "PlantHotDog",
+                "PlantVIPNut",
+                "ZombieNormalSunflower"
+            ]
+        },
+        {
+            "label": "成长时间",
+            "value": "growUpTime",
+            "type": "int",
+            "unit": "秒",
+            "helpTip": "决定长大所需要的时间",
+            "whitelist": [
+                "PlantSunShroom",
+                "PlantSunBean",
+                "PlantScaredySunShroom",
+                "PlantJalaSunShroom",
+                "PlantSunpult",
+                "PlantVIPNut",
+                "PlantTwinSunShroom",
+
+                "ZombieImpSunpult",
+                "ZombieImpSunShroom"
+            ]
+        },
+        {
+            "label": "变换时间",
+            "value": "changeTime",
+            "type": "int",
+            "unit": "秒",
+            "helpTip": "决定部分植物长大所需要的时间",
+            "whitelist": [
+                "PlantNutSeed"
+            ]
+        },
+        {
+            "label": "准备时间",
+            "value": "readyTime",
+            "type": "int",
+            "unit": "秒",
+            "helpTip": "决定土豆雷出土所需要的时间",
+            "whitelist": [
+                "PlantPotatoMine",
+                "PlantSunMine",
+                "PlantMagnetMine",
+                "PlantIceSunMine"
+            ]
+        },
+        {
+            "label": "装填时间",
+            "value": "restTime",
+            "type": "int",
+            "unit": "秒",
+            "helpTip": "决定加农炮类植物装填所需炮弹所需的时间",
+            "whitelist": [
+                "PlantCobCannon",
+                "PlantPotatoCobCannon",
+                "PlantPumpkinCannon",
+                "PlantPowShroom",
+                "PlantDoomCobCannon",
+                "PlantPeaCannon"
+            ]
+        },
+        {
+            "label": "灼烧间隔（不可用）",
+            "value": "staticTime",
+            "type": "int",
+            "unit": "秒",
+            "helpTip": "决定部分植物灼烧一次周围僵尸所需的时间",
+            "whitelist": [
+                "PlantPumpkinFire",
+                "PlantPumpkinFireIce",
+                "PlantPlanternSix",
+                "PlantFirenut",
+                "PlantJalaNut",
+                "PlantSunPad"
+            ]
+        },
+        {
+            "label": "吸铁间隔",
+            "value": "breakDownTime",
+            "type": "int",
+            "unit": "秒",
+            "helpTip": "决定部分植物吸取铁器所需的时间",
+            "whitelist": [
+                "PlantMagnetnut",
+                "PlantMagnetShroomIce",
+                "PlantMagnetsShroom"
+            ]
+        },
+        {
+            "label": "罐子内容",
+            "value": "packetName",
+            "type": "select",
+            "options": "import:plant,zombie,zombieExtra,item",
+            "whitelist": [
+                "VaseNormal",
+                "VasePlant",
+                "VaseZombie"
+            ]
+        },
+        {
+            "label": "释放效果间隔",
+            "value": "timeneed",
+            "type": "int",
+            "unit": "秒",
+            "default": 50,
+            "whitelist": [
+                "PlantJalaVase"
+            ]
+        },
+        {
+            "label": "吸取间隔",
+            "value": "drainTime",
+            "type": "int",
+            "unit": "秒",
+            "default": 10,
+            "whitelist": [
+                "ZombieVampire"
+            ]
+        },
+        {
+            "label": "召唤伴舞类型",
+            "value": "dancerPacketName",
+            "type": "select",
+            "options": "import:zombie,zombieExtra",
+            "whitelist": [
+                "ZombieJackson",
+                "ZombieJacksonCone",
+                "zombiejacksonBucket",
+                "ZombieJacksonHelmet",
+                "ZombieJacksonBlackHelmet",
+                "ZombieJacksonSpecialHelmet",
+                "ZombieDisco",
+                "ZombieJacksonX",
+                "ZombieDiscoFire",
+                "ZombieDolphinMJ",
+                "ZombieDiscopaper",
+                "ZombieDiscoGargantuar",
+                "ZombiePogoJackson"
+            ]
+        },
+        {
+            "label": "出怪放置阶段配置",
+            "value": "stageSpawnList",
+            "type": "select-pool",
+            "layer": 2,
+            "options": "import:zombie,zombieExtra",
+            "helpTip": "配置僵王博士的出怪放置阶段",
+            "whitelist": [
+                "ZombieBoss"
+            ]
+        }
+    ]
+}
