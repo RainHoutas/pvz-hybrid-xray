@@ -26,8 +26,8 @@
 
 1.  克隆仓库:
     ```bash
-    git clone https://github.com/yourusername/your-repo-name.git
-    cd your-repo-name
+    git clone https://github.com/RainHoutas/pvz-hybrid-xray.git
+    cd pvz-hybrid-xray
     ```
 2.  安装依赖:
     ```bash
@@ -38,6 +38,15 @@
     npm run dev
     ```
 4.  在浏览器中打开 [http://localhost:3000](http://localhost:3000) 即可使用。
+
+### 📢 开发者絮语 / 欢迎交流
+
+本项目目前处于**早期开发阶段**，可能会有一些 Bug 或未完善的地方。劳烦大家帮忙测试，如遇问题欢迎通过 GitHub 提交 Issue！
+
+另外，本项目全程使用 Antigravity 进行 Vibe Coding 辅助开发。本人目前代码技术不精，还在不断学习中，如有代码不够优雅之处敬请谅解。
+
+非常欢迎进行 AI 开发相关的探讨与交流！
+*   **联系 QQ**: 1271084579
 
 ---
 
@@ -63,8 +72,8 @@ Whether you want to preview wave arrangements, analyze terrain mechanics, or unc
 
 1.  Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/your-repo-name.git
-    cd your-repo-name
+    git clone https://github.com/RainHoutas/pvz-hybrid-xray.git
+    cd pvz-hybrid-xray
     ```
 2.  Install dependencies:
     ```bash
@@ -75,3 +84,12 @@ Whether you want to preview wave arrangements, analyze terrain mechanics, or unc
     npm run dev
     ```
 4.  Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+### 📢 Developer's Note / Contact
+
+This project is currently in the **early development stage**. There might be some bugs or incomplete features. Your help in testing is greatly appreciated! If you encounter any problems, please feel free to submit an issue.
+
+Furthermore, this project was developed entirely using Antigravity for Vibe Coding. I am currently a beginner and still learning how to code, so please be understanding of any unpolished code.
+
+I warmly welcome any communication or discussions related to AI-assisted development!
+*   **Contact QQ**: 1271084579
