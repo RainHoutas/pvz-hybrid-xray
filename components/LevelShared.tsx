@@ -691,6 +691,15 @@ export function WaveForecast({ waveManager, setActiveRadarZone }: WaveForecastPr
     const isEndless = !!waveManager.Dynamic && waveManager.Dynamic.length > 0;
     const flagInterval = waveManager.FlagWaveInterval || 10;
 
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+
+    const [hoveredEvent, setHoveredEvent] = useState<{
+        propChange: any[];
+        x: number;
+        y: number;
+    } | null>(null);
+
     return (
         <aside className="w-full flex flex-col">
             <div className="flex items-center justify-between gap-2 mb-6 shrink-0">
@@ -773,7 +782,18 @@ export function WaveForecast({ waveManager, setActiveRadarZone }: WaveForecastPr
                                                             const tooltipText = propChange?.length ? propChange.map(p => `${p.PropertyName}: ${p.Value}`).join(', ') : null;
 
                                                             return (
-                                                                <div key={sIdx} className="relative group flex hover:z-50">
+                                                                <div key={sIdx} className="relative group flex hover:z-50"
+                                                                    onMouseEnter={(e) => {
+                                                                        if (!propChange || !propChange.length) return;
+                                                                        const rect = e.currentTarget.getBoundingClientRect();
+                                                                        setHoveredEvent({
+                                                                            propChange,
+                                                                            x: rect.left + rect.width / 2,
+                                                                            y: rect.top
+                                                                        });
+                                                                    }}
+                                                                    onMouseLeave={() => setHoveredEvent(null)}
+                                                                >
                                                                     <span
                                                                         className={`px-3 py-1.5 shadow-sm rounded-xl text-xs font-bold border transition-colors flex items-center gap-1 cursor-default
                                                                             ${isFlagWave ? 'bg-rose-50/50 border-rose-200 text-rose-800' : 'bg-white border-gray-200 text-gray-700'}
@@ -800,18 +820,6 @@ export function WaveForecast({ waveManager, setActiveRadarZone }: WaveForecastPr
                                                                             <span className="ml-0.5 text-[11px] opacity-80" title="该实体被修改了属性">🔧</span>
                                                                         )}
                                                                     </span>
-
-                                                                    {/* Tooltip */}
-                                                                    {tooltipText && (
-                                                                        <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 min-w-max bg-gray-900/95 text-white text-[11px] font-medium px-3 py-2 rounded-xl shadow-xl border border-gray-700">
-                                                                            <div className="font-bold text-amber-400 mb-1 text-[10px] uppercase tracking-wider drop-shadow-md">Property Overrides</div>
-                                                                            <div className="flex flex-col gap-0.5">
-                                                                                {propChange!.map((p, i) => (
-                                                                                    <span key={i}><span className="opacity-60">{p.PropertyName}:</span> {String(p.Value)}</span>
-                                                                                ))}
-                                                                            </div>
-                                                                        </div>
-                                                                    )}
                                                                 </div>
                                                             );
                                                         })}
@@ -834,7 +842,7 @@ export function WaveForecast({ waveManager, setActiveRadarZone }: WaveForecastPr
 
                                                             return names.map((name: string, nIdx: number) => (
                                                                 <div key={`bungi-${bIdx}-${nIdx}`} className="relative group flex hover:z-50"
-                                                                    onMouseEnter={() => {
+                                                                    onMouseEnter={(e) => {
                                                                         if (setActiveRadarZone && val.SpawnPos) {
                                                                             setActiveRadarZone({
                                                                                 startCol: val.SpawnPos.x,
@@ -843,8 +851,19 @@ export function WaveForecast({ waveManager, setActiveRadarZone }: WaveForecastPr
                                                                                 endRow: val.SpawnPos.w
                                                                             });
                                                                         }
+                                                                        if (propChange && propChange.length > 0) {
+                                                                            const rect = e.currentTarget.getBoundingClientRect();
+                                                                            setHoveredEvent({
+                                                                                propChange,
+                                                                                x: rect.left + rect.width / 2,
+                                                                                y: rect.top
+                                                                            });
+                                                                        }
                                                                     }}
-                                                                    onMouseLeave={() => setActiveRadarZone && setActiveRadarZone(null)}
+                                                                    onMouseLeave={() => {
+                                                                        if (setActiveRadarZone) setActiveRadarZone(null);
+                                                                        setHoveredEvent(null);
+                                                                    }}
                                                                 >
                                                                     <span
                                                                         className={`px-3 py-1.5 shadow-sm rounded-xl text-xs font-bold transition-all flex items-center gap-1 border
@@ -873,18 +892,6 @@ export function WaveForecast({ waveManager, setActiveRadarZone }: WaveForecastPr
                                                                             <span className="ml-0.5 text-[11px] opacity-80" title="该实体被修改了属性">🔧</span>
                                                                         )}
                                                                     </span>
-
-                                                                    {/* Tooltip */}
-                                                                    {tooltipText && (
-                                                                        <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 min-w-max bg-gray-900/95 text-white text-[11px] font-medium px-3 py-2 rounded-xl shadow-xl border border-gray-700">
-                                                                            <div className="font-bold text-amber-400 mb-1 text-[10px] uppercase tracking-wider drop-shadow-md">Property Overrides</div>
-                                                                            <div className="flex flex-col gap-0.5">
-                                                                                {propChange!.map((p: any, i: number) => (
-                                                                                    <span key={i}><span className="opacity-60">{p.PropertyName}:</span> {String(p.Value)}</span>
-                                                                                ))}
-                                                                            </div>
-                                                                        </div>
-                                                                    )}
                                                                 </div>
                                                             ));
                                                         })}
@@ -979,6 +986,24 @@ export function WaveForecast({ waveManager, setActiveRadarZone }: WaveForecastPr
                     })()}
                 </div>
             </div>
+
+            {/* 基于 Portal 的波次特殊信息弹窗，免疫任何父组件遮挡 */}
+            {mounted && hoveredEvent && createPortal(
+                <div 
+                    className="fixed z-[99999] pointer-events-none -translate-x-1/2 -translate-y-full pb-3 flex flex-col gap-1.5 min-w-max drop-shadow-2xl animate-in fade-in zoom-in duration-150"
+                    style={{ left: hoveredEvent.x, top: hoveredEvent.y }}
+                >
+                    <div className="bg-gray-900/95 text-white text-[11px] font-medium px-3 py-2 rounded-xl shadow-xl border border-gray-700 backdrop-blur-sm">
+                        <div className="font-bold text-amber-400 mb-1 text-[10px] uppercase tracking-wider drop-shadow-md">Property Overrides</div>
+                        <div className="flex flex-col gap-0.5">
+                            {hoveredEvent.propChange.map((p: any, i: number) => (
+                                <span key={i}><span className="opacity-60">{p.PropertyName}:</span> {String(p.Value)}</span>
+                            ))}
+                        </div>
+                    </div>
+                </div>,
+                document.body
+            )}
         </aside>
     );
 }
